@@ -1,19 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use Illuminate\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class HomeController extends Controller
 {
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function __construct()
+    public function index()
+
     {
-        $this->middleware('auth');
+
+        $users= User::paginate(10);
+        return view('admin.home.index', ['users'=> $users]);
     }
 
     /**
@@ -21,8 +26,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function users()
     {
-        return view('home');
+        return view('admin.user');
     }
 }
